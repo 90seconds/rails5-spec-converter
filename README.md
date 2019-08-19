@@ -7,14 +7,14 @@ A script that fixes the syntax of your tests so Rails 5 will like them better. I
 If you write a test like this:
 
 ```
-get :users, search: 'bayleef', format: :json
+get :users, search: 'bayleef', format: :json, xhr: true
 expect(response).to be_success
 ```
 
 Rails 5 will issue a hearty deprecation warning, persuading you to write this instead:
 
 ```
-get :users, params: { search: 'bayleef' }, format: :json
+get :users, params: { search: 'bayleef', format: :json }, xhr: true
 expect(response).to be_success
 ```
 
@@ -48,7 +48,8 @@ The tool will attempt to indent the newly-added "params" hash in situations when
 ```
   get :index
       search: 'bayleef',
-      format: :json
+      format: :json,
+      xhr: true
 ```
 
 becomes
@@ -56,9 +57,10 @@ becomes
 ```
   get :index
       params: {
-        search: 'bayleef'
+        search: 'bayleef',
+        format: :json
       },
-      format: :json
+      xhr: true
 ```
 
 Since the extra spaces in front of 'params' are brand-new whitespace, you may want to configure them (default is 2 spaces).
@@ -104,4 +106,3 @@ If this Gem helped you out at all, or it didn't help because you wanted it to do
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
